@@ -34,11 +34,6 @@ def group_records(user, interaction=None, groupby='week', part_of_week='allweek'
 
     records = user.records
 
-    # Warn the user if they are selecting weekly and there's only one week
-    if groupby == 'week':
-        if len(set(r.datetime.isocalendar()[:2] for r in records)) <= 1:
-            print warning_str('Grouping by week, but all data is from the same week!')
-
     def _group_date(records, _fun):
         for _, chunk in itertools.groupby(records, key=lambda r: _fun(r.datetime)):
             yield chunk
